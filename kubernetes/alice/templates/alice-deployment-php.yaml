@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: alice-{{ default "staging" .Release.Namespace }}-php
-        image: registry-1.docker.io/php:8-fpm
+        image: php:8-fpm
         volumeMounts:
         - mountPath: /var/www/html
           name: webroot

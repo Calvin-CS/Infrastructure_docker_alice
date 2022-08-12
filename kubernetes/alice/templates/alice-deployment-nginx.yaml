@@ -29,7 +29,7 @@ spec:
             path: site.conf
       containers:
       - name: nginx
-        image: registry-1.docker.io/nginx:stable
+        image: nginx:stable
         ports:
         - containerPort: 80
         volumeMounts:
