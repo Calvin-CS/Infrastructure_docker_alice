@@ -26,6 +26,7 @@ spec:
         volumeMounts:
         - mountPath: /var/www/html
           name: webroot
+          readOnly: true
       volumes:
       - name: webroot
         nfs:

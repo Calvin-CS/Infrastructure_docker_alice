@@ -28,12 +28,13 @@ spec:
           - key: config
             path: site.conf
       containers:
-      - name: nginx
+      - name: alice-{{ default "staging" .Release.Namespace }}-nginx
         image: nginx:stable
         ports:
         - containerPort: 80
         volumeMounts:
         - mountPath: /var/www/html
           name: webroot
+          readOnly: true
         - mountPath: /etc/nginx/conf.d
           name: config
