@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alice-{{ default "staging" .Release.Namespace }}-php
+  namespace: {{ default "staging" .Release.Namespace }}
+  labels:
+    tier: backend
+  annotations:
+    "builddate": "20220812-01"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alice-{{ default "staging" .Release.Namespace }}-php
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: alice-{{ default "staging" .Release.Namespace }}-php
+        tier: backend
+        {{ if ne .Release.Namespace "production" }}name: alice-{{ .Release.Namespace }}{{- else }}hostname: alice{{- end }}
+    spec:
+      containers:
+      - name: alice-{{ default "staging" .Release.Namespace }}-php
+        image: registry-1.docker.io/php:8-fpm
+        volumeMounts:
+        - mountPath: /var/www/html
+          name: webroot
+      volumes:
+      - name: webroot
+        nfs:
+          path: /export/csweb/alice
+          server: aznfs-int.cs.calvin.edu

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: alice
+description: A Helm chart for Kubernetes deployment of alice
+version: 0.1.0

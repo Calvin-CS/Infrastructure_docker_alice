@@ -1,0 +1,36 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alice-{{ default "staging" .Release.Namespace }}-nginx-config
+  labels:
+    tier: backend
+data:
+  nginx.conf: |
+    events {
+    }
+    http {
+      server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        
+        # Set nginx to serve files from the shared volume!
+        root /var/www/html;
+        server_name _;
+        location / {
+          autoindex on;
+          try_files $uri $uri/ =404;
+        }
+        location ~ /\.ht {
+          deny all;
+        }
+        location ~ \.php$ {
+          try_files $uri =404;
+          fastcgi_split_path_info ^(.+\.php)(/.+)$;
+          fastcgi_pass alice-{{ default "staging" .Release.Namespace }}-php:9000;
+          fastcgi_index index.php;
+          include fastcgi_params;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          fastcgi_param PATH_INFO $fastcgi_path_info;
+        }
+      }
+    }
