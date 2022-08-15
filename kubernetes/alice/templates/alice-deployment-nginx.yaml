@@ -19,8 +19,8 @@ spec:
       volumes:
       - name: webroot
         nfs:
-          path: /export/csweb/alice
-          server: aznfs-int.cs.calvin.edu
+          path: /calvincsaks/csweb/alice
+          server: calvincsaks.file.core.windows.net
       - name: config
         configMap:
           name: alice-{{ default "staging" .Release.Namespace }}-nginx-config

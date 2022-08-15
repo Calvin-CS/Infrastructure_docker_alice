@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - alice{{ if ne .Release.Namespace "production" }}-{{ default "staging" .Release.Namespace }}{{- end}}.{{ .Values.dns.name }}
+    - alice{{ if ne .Release.Namespace "production" }}-{{ default "staging" .Release.Namespace }}.cs{{- end}}.{{ .Values.dns.name }}
     secretName: tls-secret-alice-{{ default "staging" .Release.Namespace }}
   rules:
-  - host: alice{{ if ne .Release.Namespace "production" }}-{{ default "staging" .Release.Namespace }}{{- end}}.{{ .Values.dns.name }}
+  - host: alice{{ if ne .Release.Namespace "production" }}-{{ default "staging" .Release.Namespace }}.cs{{- end}}.{{ .Values.dns.name }}
     http:
       paths:
       - path: /(.*)

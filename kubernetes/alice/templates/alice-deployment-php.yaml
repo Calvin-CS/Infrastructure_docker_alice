@@ -30,5 +30,5 @@ spec:
       volumes:
       - name: webroot
         nfs:
-          path: /export/csweb/alice
-          server: aznfs-int.cs.calvin.edu
+          path: /calvincsaks/csweb/alice
+          server: calvincsaks.file.core.windows.net
